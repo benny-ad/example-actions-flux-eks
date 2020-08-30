@@ -98,6 +98,7 @@ jobs:
         # Apply configuration to cluster
         export KUBECONFIG="${RUNNER_TEMP}/.kube/config"
         kustomize edit set image ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/example-eks:${GITHUB_SHA}
+        echo "-->kustomize edit set image ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/example-eks:${GITHUB_SHA}"
         kustomize build . | kubectl apply -f -
         # Verify deployment
         kubectl rollout status deployment/aws-example-octodex
