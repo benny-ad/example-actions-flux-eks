@@ -1,3 +1,5 @@
+![Build and Deploy to EKS](https://github.com/benny-ad/example-actions-flux-eks/workflows/Build%20and%20Deploy%20to%20EKS/badge.svg?event=deployment)
+
 # Example GitHub Actions workflow with Flux and Amazon EKS
 
 An example workflow that uses [GitHub Actions](https://help.github.com/en/categories/automating-your-workflow-with-github-actions) to build [a static website](app/site/) into a Docker container, push that image to Amazon Elastic Container Registry, and uses [Flux](https://www.weave.works/oss/flux/) to automatically update an existing Amazon Elastic Kubernetes Service cluster with that image.
