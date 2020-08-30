@@ -2,27 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aws-example-octodex
+  name: example-eks
+  labels:
+    app: eks-example
 spec:
-  replicas: 1
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-  minReadySeconds: 5
+  replicas: 2
+  selector:
+    matchLabels:
+      app: eks-example
   template:
     metadata:
       labels:
-        app: aws-example-octodex
+        app: eks-example
     spec:
       containers:
-      - name: aws-example-octodex
-        # image: 00000000000000.dkr.ecr.my-region.amazonaws.com/example-eks:tag
+      - name: aws-example-exp
         image: 841347124655.dkr.ecr.us-east-2.amazonaws.com/example-eks:2b48a6413e12dfebf8e6326a0b978003f9244270
         ports:
         - containerPort: 5000
-        resources:
-          requests:
-            cpu: 250m
-          limits:
-            cpu: 500m
