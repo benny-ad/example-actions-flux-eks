@@ -1,4 +1,4 @@
-![Build and Deploy to EKS](https://github.com/benny-ad/example-actions-flux-eks/workflows/Build%20and%20Deploy%20to%20EKS/badge.svg?event=deployment)
+![Build and Deploy to EKS](https://github.com/benny-ad/example-actions-flux-eks/workflows/Build%20and%20Deploy%20to%20EKS/badge.svg)
 
 # Example GitHub Actions workflow with Flux and Amazon EKS
 
