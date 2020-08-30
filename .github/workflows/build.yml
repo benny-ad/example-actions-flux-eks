@@ -2,6 +2,8 @@
 on:
   pull_request:
   push:
+    paths:
+    - app/**
     branches:         # array of glob patterns matching against refs/heads. Optional; defaults to all
     - master          # triggers on pushes that contain changes in master
 
@@ -9,7 +11,7 @@ name: Build and Deploy to EKS
 
 env:
   AWS_REGION: us-east-2
-  CONTAINER_IMAGE: example-eks:${{ github.sha }}
+  CONTAINER_IMAGE: example-actions-flux-eks:${{ github.sha }}
 
 jobs:
   build-and-deploy:
@@ -77,7 +79,7 @@ jobs:
         docker build \
           -t $CONTAINER_IMAGE \
           -t $GITHUB_REPOSITORY:$GITHUB_SHA \
-          -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_IMAGE .
+          -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_IMAGE ./app
         # Save the image so it can be uploaded as an artifact
         docker save $CONTAINER_IMAGE | gzip > ./example-eks.tar.gz
         du -h ./example-eks.tar.gz
