@@ -16,7 +16,7 @@ spec:
         app: eks-example
     spec:
       containers:
-      - name: aws-example-exp
+      - name: example-actions-flux-eks
         image: 841347124655.dkr.ecr.us-east-2.amazonaws.com/example-eks:2b48a6413e12dfebf8e6326a0b978003f9244270
         ports:
         - containerPort: 5000
