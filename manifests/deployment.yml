@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: example-actions-flux-eks
-        image: 841347124655.dkr.ecr.us-east-2.amazonaws.com/example-eks:2b48a6413e12dfebf8e6326a0b978003f9244270
+        image: 841347124655.dkr.ecr.us-west-2.amazonaws.com/example-actions-flux-eks:bbc6a3fb93872a30f47a8a92f8589ac36ec1af6b
         ports:
         - containerPort: 5000
