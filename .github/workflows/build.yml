@@ -82,7 +82,7 @@ jobs:
           -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_IMAGE ./app
         # Save the image so it can be uploaded as an artifact
         docker save $CONTAINER_IMAGE | gzip > ./${{ github.run_number }}.tar.gz
-        du -h ./{{ github.run_number }}.tar.gz
+        du -h ./${{ github.run_number }}.tar.gz
 
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
