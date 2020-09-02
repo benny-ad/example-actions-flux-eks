@@ -10,7 +10,7 @@ on:
 name: Build and Deploy to EKS
 
 env:
-  AWS_REGION: us-east-2
+  AWS_REGION: us-west-2
   CONTAINER_IMAGE: example-actions-flux-eks:${{ github.sha }}
 
 jobs:
