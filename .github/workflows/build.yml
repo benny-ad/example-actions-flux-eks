@@ -11,6 +11,7 @@ name: Build and Deploy to EKS
 
 env:
   AWS_REGION: us-west-2
+  CONTAINER_NAME: example-actions-flux-eks
   CONTAINER_IMAGE: example-actions-flux-eks:${{ github.sha }}
 
 jobs:
@@ -93,11 +94,11 @@ jobs:
     - name: Deploy
       if: github.ref == 'refs/heads/master'
       run: |
-        # Push image to AWS ECR -->kustomize edit set image ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/${CONTAINER_IMAGE}:${GITHUB_SHA}"
-        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_IMAGE
+        # Push image to AWS ECR -->kustomize edit set image ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/${CONTAINER_NAME}:${GITHUB_SHA}"
+        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_NAME
         # Apply configuration to cluster
         export KUBECONFIG="${RUNNER_TEMP}/.kube/config"
-        kustomize edit set image ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_IMAGE:${GITHUB_SHA}
+        kustomize edit set image ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_NAME:${GITHUB_SHA}
         kustomize build . | kubectl apply -f -
         # Verify deployment
         kubectl rollout status deployment/aws-example-exp
@@ -109,5 +110,6 @@ jobs:
         echo .dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_IMAGE:${GITHUB_SHA}
         echo .dkr.ecr.$AWS_REGION.amazonaws.com/${CONTAINER_IMAGE}:${GITHUB_SHA}
         echo .dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_IMAGE:$GITHUB_SHA
+        cat ./manifests/deployment.yml
 
 
