@@ -95,10 +95,10 @@ jobs:
       if: github.ref == 'refs/heads/master'
       run: |
         # Push image to AWS ECR -->kustomize edit set image ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/${CONTAINER_NAME}:${GITHUB_SHA}"
-        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_NAME
+        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_IMAGE
         # Apply configuration to cluster
         export KUBECONFIG="${RUNNER_TEMP}/.kube/config"
-        kustomize edit set image ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_NAME:${GITHUB_SHA}
+        kustomize edit set image ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_IMAGE
         kustomize build . | kubectl apply -f -
         # Verify deployment
         kubectl rollout status deployment/aws-example-exp
