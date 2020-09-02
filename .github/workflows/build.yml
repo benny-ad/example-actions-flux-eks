@@ -94,19 +94,13 @@ jobs:
     - name: Deploy
       if: github.ref == 'refs/heads/master'
       run: |
-        # Push image to AWS ECR -->kustomize edit set image ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/${CONTAINER_NAME}"
+        # Push image to AWS ECR
         docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_IMAGE
         # Apply configuration to cluster
         export KUBECONFIG="${RUNNER_TEMP}/.kube/config"
         kustomize edit set image ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_IMAGE
-        kustomize build .
-        # echo ecr name 
-        echo .dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_IMAGE
-        cat ./kustomization.yaml
-        cat ./manifests/deployment.yml
         kustomize build . | kubectl apply -f -
         # Verify deployment
         kubectl rollout status deployment/aws-example-exp
         # List Public IP of cluster
         kubectl get services -o wide
-
