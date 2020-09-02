@@ -103,3 +103,11 @@ jobs:
         kubectl rollout status deployment/aws-example-exp
         # List Public IP of cluster
         kubectl get services -o wide
+    - name: Log
+      run: |
+        # echo ecr name 
+        echo .dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_IMAGE:${GITHUB_SHA}
+        echo .dkr.ecr.$AWS_REGION.amazonaws.com/${CONTAINER_IMAGE}:${GITHUB_SHA}
+        echo .dkr.ecr.$AWS_REGION.amazonaws.com/$CONTAINER_IMAGE:$GITHUB_SHA
+
+
